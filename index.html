@@ -179,6 +179,102 @@
       gap: 12px;
     }
 
+    .flight-card {
+      padding: 16px;
+      margin-bottom: 14px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .flight-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .flight-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .flight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flight-panel {
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .flight-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .flight-number {
+      margin-top: 4px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 850;
+      overflow-wrap: anywhere;
+    }
+
+    .flight-route {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 6px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .flight-place {
+      color: var(--subtext);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .flight-time {
+      color: var(--accent);
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .flight-arrow {
+      color: var(--subtext);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .flight-extra {
+      display: grid;
+      gap: 4px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      color: var(--subtext);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
     .day-card {
       width: 100%;
       padding: 16px;
@@ -538,6 +634,12 @@
       font-weight: 800;
     }
 
+    .two-fields {
+      display: grid;
+      grid-template-columns: 1fr 96px;
+      gap: 10px;
+    }
+
     .sheet-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -660,6 +762,87 @@
     </section>
   </div>
 
+  <div class="sheet-backdrop" id="flightSheet" aria-hidden="true">
+    <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="flightSheetTitle">
+      <div class="grabber" aria-hidden="true"></div>
+      <h2 class="sheet-title" id="flightSheetTitle">フライト情報を編集</h2>
+      <form id="flightForm" class="form-grid">
+        <div class="field">
+          <label for="outboundFlightNumber">往路 便名</label>
+          <input class="input" id="outboundFlightNumber" autocomplete="off">
+        </div>
+        <div class="two-fields">
+          <div class="field">
+            <label for="outboundDepartPlace">往路 出発地</label>
+            <input class="input" id="outboundDepartPlace" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="outboundDepartTime">出発時刻</label>
+            <input class="input" id="outboundDepartTime" autocomplete="off">
+          </div>
+        </div>
+        <div class="two-fields">
+          <div class="field">
+            <label for="outboundArrivePlace">往路 到着地</label>
+            <input class="input" id="outboundArrivePlace" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="outboundArriveTime">到着時刻</label>
+            <input class="input" id="outboundArriveTime" autocomplete="off">
+          </div>
+        </div>
+        <div class="two-fields">
+          <div class="field">
+            <label for="outboundSeat">往路 座席番号</label>
+            <input class="input" id="outboundSeat" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="outboundReservation">予約番号</label>
+            <input class="input" id="outboundReservation" autocomplete="off">
+          </div>
+        </div>
+        <div class="field">
+          <label for="returnFlightNumber">復路 便名</label>
+          <input class="input" id="returnFlightNumber" autocomplete="off">
+        </div>
+        <div class="two-fields">
+          <div class="field">
+            <label for="returnDepartPlace">復路 出発地</label>
+            <input class="input" id="returnDepartPlace" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="returnDepartTime">出発時刻</label>
+            <input class="input" id="returnDepartTime" autocomplete="off">
+          </div>
+        </div>
+        <div class="two-fields">
+          <div class="field">
+            <label for="returnArrivePlace">復路 到着地</label>
+            <input class="input" id="returnArrivePlace" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="returnArriveTime">到着時刻</label>
+            <input class="input" id="returnArriveTime" autocomplete="off">
+          </div>
+        </div>
+        <div class="two-fields">
+          <div class="field">
+            <label for="returnSeat">復路 座席番号</label>
+            <input class="input" id="returnSeat" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="returnReservation">予約番号</label>
+            <input class="input" id="returnReservation" autocomplete="off">
+          </div>
+        </div>
+        <div class="sheet-actions">
+          <button class="secondary-button" type="button" id="cancelFlight">キャンセル</button>
+          <button class="primary-button" type="submit">保存</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
   <script>
     const STORAGE_KEY = "shikoku_trip_2026";
     const CATEGORIES = {
@@ -673,6 +856,10 @@
       title: "四国旅のしおり",
       subtitle: "3人旅・レンタカー",
       date: "2026年5月15日（金）〜 5月18日（月）",
+      flights: {
+        outbound: flight("往路", "JAL475", "東京（羽田）", "07:50", "高松", "09:10", "33K", "EW2LXE"),
+        return: flight("復路", "ANA596", "松山", "16:45", "東京（羽田）", "18:20", "", "0390")
+      },
       days: [
         {
           id: "day1",
@@ -743,6 +930,8 @@
     const content = document.getElementById("content");
     const sheet = document.getElementById("itemSheet");
     const form = document.getElementById("itemForm");
+    const flightSheet = document.getElementById("flightSheet");
+    const flightForm = document.getElementById("flightForm");
 
     document.getElementById("tripDate").textContent = state.date;
     document.getElementById("tripTitle").textContent = state.title;
@@ -753,8 +942,12 @@
     });
 
     document.getElementById("cancelItem").addEventListener("click", closeSheet);
+    document.getElementById("cancelFlight").addEventListener("click", closeFlightSheet);
     sheet.addEventListener("click", (event) => {
       if (event.target === sheet) closeSheet();
+    });
+    flightSheet.addEventListener("click", (event) => {
+      if (event.target === flightSheet) closeFlightSheet();
     });
 
     form.addEventListener("submit", (event) => {
@@ -784,10 +977,25 @@
       render();
     });
 
+    flightForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.flights = {
+        outbound: readFlightForm("outbound", "往路"),
+        return: readFlightForm("return", "復路")
+      };
+      persist();
+      closeFlightSheet();
+      render();
+    });
+
     render();
 
     function item(time, title, memo, category) {
       return { id: createId(), time, title, memo, category };
+    }
+
+    function flight(label, number, departPlace, departTime, arrivePlace, arriveTime, seat, reservation) {
+      return { label, number, departPlace, departTime, arrivePlace, arriveTime, seat, reservation };
     }
 
     function check(text) {
@@ -803,7 +1011,7 @@
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         try {
-          return JSON.parse(saved);
+          return normalizeState(JSON.parse(saved));
         } catch (error) {
           console.warn("保存データを読み込めませんでした。初期データを使用します。", error);
         }
@@ -812,8 +1020,25 @@
       return JSON.parse(JSON.stringify(initialData));
     }
 
+    function normalizeState(savedState) {
+      const nextState = {
+        ...JSON.parse(JSON.stringify(initialData)),
+        ...savedState
+      };
+      nextState.flights = {
+        ...JSON.parse(JSON.stringify(initialData.flights)),
+        ...(savedState.flights || {})
+      };
+      persistState(nextState);
+      return nextState;
+    }
+
     function persist() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      persistState(state);
+    }
+
+    function persistState(nextState) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
     }
 
     function setTab(tabId) {
@@ -848,6 +1073,7 @@
               <p class="section-subtitle">4日分の予定をまとめて確認</p>
             </div>
           </div>
+          ${renderFlights()}
           <div class="summary-grid">
             ${state.days.map((day) => `
               <button class="day-card" type="button" data-jump="${day.id}">
@@ -870,6 +1096,45 @@
             `).join("")}
           </div>
         </section>
+      `;
+    }
+
+    function renderFlights() {
+      return `
+        <section class="flight-card" aria-label="フライト情報">
+          <div class="flight-card-head">
+            <h3 class="flight-title"><span aria-hidden="true">✈️</span><span>フライト情報</span></h3>
+            <button class="text-button" type="button" data-edit-flights>編集</button>
+          </div>
+          <div class="flight-grid">
+            ${renderFlightPanel(state.flights.outbound)}
+            ${renderFlightPanel(state.flights.return)}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderFlightPanel(current) {
+      return `
+        <article class="flight-panel">
+          <div class="flight-label">${escapeHtml(current.label)}</div>
+          <div class="flight-number">${escapeHtml(current.number || "便名未定")}</div>
+          <div class="flight-route">
+            <div>
+              <div class="flight-time">${escapeHtml(current.departTime || "--:--")}</div>
+              <div class="flight-place">${escapeHtml(current.departPlace || "出発地未定")}</div>
+            </div>
+            <div class="flight-arrow" aria-hidden="true">→</div>
+            <div>
+              <div class="flight-time">${escapeHtml(current.arriveTime || "--:--")}</div>
+              <div class="flight-place">${escapeHtml(current.arrivePlace || "到着地未定")}</div>
+            </div>
+          </div>
+          <div class="flight-extra">
+            <span>座席：${escapeHtml(current.seat || "未定")}</span>
+            <span>予約番号：${escapeHtml(current.reservation || "未定")}</span>
+          </div>
+        </article>
       `;
     }
 
@@ -947,6 +1212,10 @@
         button.addEventListener("click", () => openSheet(button.dataset.addItem));
       });
 
+      document.querySelectorAll("[data-edit-flights]").forEach((button) => {
+        button.addEventListener("click", openFlightSheet);
+      });
+
       document.querySelectorAll("[data-edit-item]").forEach((button) => {
         button.addEventListener("click", () => {
           const [dayId, itemId] = button.dataset.editItem.split(":");
@@ -1020,6 +1289,43 @@
       sheet.classList.remove("open");
       sheet.setAttribute("aria-hidden", "true");
       form.reset();
+    }
+
+    function openFlightSheet() {
+      writeFlightForm("outbound", state.flights.outbound);
+      writeFlightForm("return", state.flights.return);
+      flightSheet.classList.add("open");
+      flightSheet.setAttribute("aria-hidden", "false");
+      setTimeout(() => document.getElementById("outboundFlightNumber").focus(), 230);
+    }
+
+    function closeFlightSheet() {
+      flightSheet.classList.remove("open");
+      flightSheet.setAttribute("aria-hidden", "true");
+      flightForm.reset();
+    }
+
+    function writeFlightForm(prefix, current) {
+      document.getElementById(`${prefix}FlightNumber`).value = current.number || "";
+      document.getElementById(`${prefix}DepartPlace`).value = current.departPlace || "";
+      document.getElementById(`${prefix}DepartTime`).value = current.departTime || "";
+      document.getElementById(`${prefix}ArrivePlace`).value = current.arrivePlace || "";
+      document.getElementById(`${prefix}ArriveTime`).value = current.arriveTime || "";
+      document.getElementById(`${prefix}Seat`).value = current.seat || "";
+      document.getElementById(`${prefix}Reservation`).value = current.reservation || "";
+    }
+
+    function readFlightForm(prefix, label) {
+      return flight(
+        label,
+        document.getElementById(`${prefix}FlightNumber`).value.trim(),
+        document.getElementById(`${prefix}DepartPlace`).value.trim(),
+        document.getElementById(`${prefix}DepartTime`).value.trim(),
+        document.getElementById(`${prefix}ArrivePlace`).value.trim(),
+        document.getElementById(`${prefix}ArriveTime`).value.trim(),
+        document.getElementById(`${prefix}Seat`).value.trim(),
+        document.getElementById(`${prefix}Reservation`).value.trim()
+      );
     }
 
     function findDay(dayId) {
