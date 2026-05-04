@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>四国旅のしおり</title>
+  <style>
+    :root {
+      --bg: #F2F2F7;
+      --card: #FFFFFF;
+      --accent: #FF9500;
+      --text: #1C1C1E;
+      --subtext: #8E8E93;
+      --line: #E5E5EA;
+      --move: #007AFF;
+      --sight: #34C759;
+      --food: #FF9500;
+      --stay: #AF52DE;
+      --danger: #FF3B30;
+      --shadow: 0 8px 22px rgba(28, 28, 30, 0.08);
+      --radius: 12px;
+      --tab-height: 78px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .app {
+      max-width: 430px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: var(--bg);
+      position: relative;
+      overflow-x: hidden;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: calc(18px + env(safe-area-inset-top)) 20px 16px;
+      background: rgba(242, 242, 247, 0.88);
+      border-bottom: 1px solid rgba(229, 229, 234, 0.7);
+      backdrop-filter: saturate(180%) blur(18px);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0 0 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--subtext);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    main {
+      padding: 16px 14px calc(var(--tab-height) + 20px + env(safe-area-inset-bottom));
+    }
+
+    .view {
+      display: none;
+      animation: fadeIn 180ms ease-out both;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 4px 6px 12px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .section-subtitle {
+      margin: 3px 0 0;
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .icon-button,
+    .primary-button,
+    .text-button {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-weight: 800;
+    }
+
+    .icon-button,
+    .primary-button {
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 6px 14px rgba(255, 149, 0, 0.25);
+    }
+
+    .text-button {
+      color: var(--accent);
+      background: rgba(255, 149, 0, 0.12);
+      padding: 0 16px;
+      box-shadow: none;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .day-card {
+      width: 100%;
+      padding: 16px;
+      color: inherit;
+      text-align: left;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform 140ms ease, box-shadow 140ms ease;
+    }
+
+    .day-card:active {
+      transform: scale(0.985);
+      box-shadow: 0 4px 12px rgba(28, 28, 30, 0.08);
+    }
+
+    .day-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .day-chip {
+      color: #fff;
+      background: var(--accent);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .day-card h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .day-meta,
+    .muted {
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .day-meta {
+      margin-top: 4px;
+    }
+
+    .summary-items {
+      display: grid;
+      gap: 7px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .summary-items li {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 9px;
+      align-items: baseline;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .summary-time,
+    .timeline-time {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 62px minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      animation: insertItem 220ms ease-out both;
+    }
+
+    @keyframes insertItem {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .timeline-time {
+      padding-top: 2px;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .timeline-main {
+      min-width: 0;
+    }
+
+    .item-title-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .item-title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 4px;
+      flex: 0 0 auto;
+    }
+
+    .mini-button {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #F2F2F7;
+      color: var(--subtext);
+      display: inline-grid;
+      place-items: center;
+      font-size: 14px;
+    }
+
+    .mini-button.danger {
+      color: var(--danger);
+      background: rgba(255, 59, 48, 0.1);
+    }
+
+    .item-note {
+      margin: 5px 0 0;
+      color: var(--subtext);
+      font-size: 13px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin-top: 9px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .badge.move {
+      background: var(--move);
+    }
+
+    .badge.sightseeing {
+      background: var(--sight);
+    }
+
+    .badge.food {
+      background: var(--food);
+    }
+
+    .badge.stay {
+      background: var(--stay);
+    }
+
+    .empty {
+      padding: 26px 18px;
+      color: var(--subtext);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .add-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 54px;
+      gap: 10px;
+      margin: 0 0 12px;
+    }
+
+    .input,
+    .textarea,
+    .select {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      padding: 12px 13px;
+      outline: none;
+    }
+
+    .input:focus,
+    .textarea:focus,
+    .select:focus {
+      border-color: rgba(255, 149, 0, 0.75);
+      box-shadow: 0 0 0 4px rgba(255, 149, 0, 0.14);
+    }
+
+    .textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+    }
+
+    .check-item {
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) 44px;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 10px 10px 14px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .check-item input {
+      width: 24px;
+      height: 24px;
+      accent-color: var(--accent);
+    }
+
+    .check-text {
+      font-size: 15px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .check-item.done .check-text {
+      color: var(--subtext);
+      text-decoration: line-through;
+    }
+
+    .tabbar {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 20;
+      width: min(100%, 430px);
+      height: calc(var(--tab-height) + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+      background: rgba(255, 255, 255, 0.94);
+      border-top: 1px solid var(--line);
+      backdrop-filter: saturate(180%) blur(18px);
+    }
+
+    .tab {
+      min-width: 0;
+      min-height: 56px;
+      padding: 4px 2px;
+      border-radius: 10px;
+      color: var(--subtext);
+      background: transparent;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 2px;
+      font-weight: 800;
+    }
+
+    .tab.active {
+      color: var(--accent);
+      background: rgba(255, 149, 0, 0.1);
+    }
+
+    .tab-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .tab-label {
+      font-size: 10px;
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .sheet-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .sheet {
+      width: min(100%, 430px);
+      padding: 10px 16px calc(18px + env(safe-area-inset-bottom));
+      background: var(--bg);
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.16);
+      transform: translateY(100%);
+      transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .sheet-backdrop.open .sheet {
+      transform: translateY(0);
+    }
+
+    .grabber {
+      width: 38px;
+      height: 5px;
+      margin: 0 auto 14px;
+      border-radius: 99px;
+      background: #C7C7CC;
+    }
+
+    .sheet-title {
+      margin: 0 0 14px;
+      font-size: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field label {
+      display: block;
+      margin: 0 0 6px;
+      color: var(--subtext);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .sheet-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .secondary-button {
+      min-height: 48px;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--subtext);
+      font-weight: 800;
+      border: 1px solid var(--line);
+    }
+
+    .primary-button {
+      min-height: 48px;
+      border-radius: 12px;
+      padding: 0 16px;
+    }
+
+    @media (min-width: 700px) {
+      body {
+        padding: 24px 0;
+      }
+
+      .app {
+        min-height: calc(100vh - 48px);
+        border-radius: 28px;
+        overflow: hidden;
+      }
+
+      .header {
+        border-radius: 28px 28px 0 0;
+      }
+
+      .tabbar {
+        bottom: 24px;
+        border-radius: 0 0 28px 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <p class="eyebrow" id="tripDate"></p>
+      <h1 id="tripTitle"></h1>
+      <p class="subtitle" id="tripSubtitle"></p>
+    </header>
+
+    <main id="content"></main>
+
+    <nav class="tabbar" aria-label="タブ">
+      <button class="tab active" type="button" data-tab="summary" aria-label="概要">
+        <span class="tab-icon">📋</span>
+        <span class="tab-label">概要</span>
+      </button>
+      <button class="tab" type="button" data-tab="day1" aria-label="Day1">
+        <span class="tab-icon">1️⃣</span>
+        <span class="tab-label">Day1</span>
+      </button>
+      <button class="tab" type="button" data-tab="day2" aria-label="Day2">
+        <span class="tab-icon">2️⃣</span>
+        <span class="tab-label">Day2</span>
+      </button>
+      <button class="tab" type="button" data-tab="day3" aria-label="Day3">
+        <span class="tab-icon">3️⃣</span>
+        <span class="tab-label">Day3</span>
+      </button>
+      <button class="tab" type="button" data-tab="day4" aria-label="Day4">
+        <span class="tab-icon">4️⃣</span>
+        <span class="tab-label">Day4</span>
+      </button>
+      <button class="tab" type="button" data-tab="todo" aria-label="TODO">
+        <span class="tab-icon">✅</span>
+        <span class="tab-label">TODO</span>
+      </button>
+      <button class="tab" type="button" data-tab="packing" aria-label="持ち物">
+        <span class="tab-icon">🧳</span>
+        <span class="tab-label">持ち物</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="sheet-backdrop" id="itemSheet" aria-hidden="true">
+    <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="grabber" aria-hidden="true"></div>
+      <h2 class="sheet-title" id="sheetTitle">予定を追加</h2>
+      <form id="itemForm" class="form-grid">
+        <input type="hidden" id="itemDay">
+        <input type="hidden" id="itemId">
+        <div class="field">
+          <label for="itemTime">時間</label>
+          <input class="input" id="itemTime" autocomplete="off" placeholder="例: 12:00 / 午前 / 夜">
+        </div>
+        <div class="field">
+          <label for="itemTitle">タイトル</label>
+          <input class="input" id="itemTitle" autocomplete="off" required placeholder="予定名">
+        </div>
+        <div class="field">
+          <label for="itemMemo">メモ</label>
+          <textarea class="textarea" id="itemMemo" placeholder="予約番号、住所、補足など"></textarea>
+        </div>
+        <div class="field">
+          <label for="itemCategory">カテゴリ</label>
+          <select class="select" id="itemCategory">
+            <option value="移動">移動</option>
+            <option value="観光">観光</option>
+            <option value="食事">食事</option>
+            <option value="宿泊">宿泊</option>
+          </select>
+        </div>
+        <div class="sheet-actions">
+          <button class="secondary-button" type="button" id="cancelItem">キャンセル</button>
+          <button class="primary-button" type="submit">保存</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "shikoku_trip_2026";
+    const CATEGORIES = {
+      "移動": "move",
+      "観光": "sightseeing",
+      "食事": "food",
+      "宿泊": "stay"
+    };
+
+    const initialData = {
+      title: "四国旅のしおり",
+      subtitle: "3人旅・レンタカー",
+      date: "2026年5月15日（金）〜 5月18日（月）",
+      days: [
+        {
+          id: "day1",
+          label: "Day1",
+          date: "5/15・金",
+          area: "香川・小豆島",
+          items: [
+            item("09:10", "高松空港着 ✈️", "", "移動"),
+            item("09:30", "レンタカー受け取り 🚗", "", "移動"),
+            item("12:00", "讃岐うどん 🍜", "", "食事"),
+            item("13:00", "フェリー 高松→小豆島", "", "移動"),
+            item("14:00", "エンジェルロード", "", "観光"),
+            item("15:30", "オリーブの公園", "", "観光"),
+            item("17:30", "フェリーで高松へ帰着", "", "移動"),
+            item("18:30", "高松で飲み 🍻", "", "食事")
+          ]
+        },
+        {
+          id: "day2",
+          label: "Day2",
+          date: "5/16・土",
+          area: "徳島",
+          items: [
+            item("午前", "高松→徳島へ移動", "", "移動"),
+            item("12:00", "徳島ラーメン 🍜", "", "食事"),
+            item("13:00", "徳島観光", "", "観光"),
+            item("夕方", "高知方面へ移動（約2.5時間）", "", "移動")
+          ]
+        },
+        {
+          id: "day3",
+          label: "Day3",
+          date: "5/17・日",
+          area: "高知→愛媛",
+          items: [
+            item("10:00", "高知観光", "", "観光"),
+            item("12:00", "高知グルメ", "", "食事"),
+            item("夕食", "ブリしゃぶ 🐟", "", "食事"),
+            item("18:30", "道後温泉 ♨️", "", "観光"),
+            item("夜", "松山市内 宿泊", "", "宿泊")
+          ]
+        },
+        {
+          id: "day4",
+          label: "Day4",
+          date: "5/18・月",
+          area: "愛媛→帰宅",
+          items: [
+            item("10:00", "愛媛観光", "", "観光"),
+            item("16:00", "松山空港 ✈️", "", "移動"),
+            item("18:00", "羽田/成田着", "", "移動")
+          ]
+        }
+      ],
+      todos: [],
+      packing: [
+        check("充電器"),
+        check("常備薬"),
+        check("着替え（4日分）"),
+        check("日焼け止め"),
+        check("エコバッグ")
+      ]
+    };
+
+    let state = loadState();
+    let activeTab = "summary";
+
+    const content = document.getElementById("content");
+    const sheet = document.getElementById("itemSheet");
+    const form = document.getElementById("itemForm");
+
+    document.getElementById("tripDate").textContent = state.date;
+    document.getElementById("tripTitle").textContent = state.title;
+    document.getElementById("tripSubtitle").textContent = state.subtitle;
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => setTab(tab.dataset.tab));
+    });
+
+    document.getElementById("cancelItem").addEventListener("click", closeSheet);
+    sheet.addEventListener("click", (event) => {
+      if (event.target === sheet) closeSheet();
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const dayId = document.getElementById("itemDay").value;
+      const id = document.getElementById("itemId").value;
+      const title = document.getElementById("itemTitle").value.trim();
+      if (!title) return;
+
+      const nextItem = {
+        id: id || createId(),
+        time: document.getElementById("itemTime").value.trim(),
+        title,
+        memo: document.getElementById("itemMemo").value.trim(),
+        category: document.getElementById("itemCategory").value
+      };
+
+      const day = findDay(dayId);
+      if (id) {
+        day.items = day.items.map((current) => current.id === id ? nextItem : current);
+      } else {
+        day.items.push(nextItem);
+      }
+      day.items = sortItems(day.items);
+      persist();
+      closeSheet();
+      render();
+    });
+
+    render();
+
+    function item(time, title, memo, category) {
+      return { id: createId(), time, title, memo, category };
+    }
+
+    function check(text) {
+      return { id: createId(), text, done: false };
+    }
+
+    function createId() {
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      return "id-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (error) {
+          console.warn("保存データを読み込めませんでした。初期データを使用します。", error);
+        }
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialData));
+      return JSON.parse(JSON.stringify(initialData));
+    }
+
+    function persist() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function setTab(tabId) {
+      activeTab = tabId;
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.classList.toggle("active", tab.dataset.tab === tabId);
+      });
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function render() {
+      if (activeTab === "summary") {
+        content.innerHTML = renderSummary();
+      } else if (activeTab === "todo") {
+        content.innerHTML = renderChecklist("todo", "TODO", "やることを追加", state.todos);
+      } else if (activeTab === "packing") {
+        content.innerHTML = renderChecklist("packing", "持ち物", "持ち物を追加", state.packing);
+      } else {
+        const day = findDay(activeTab);
+        content.innerHTML = renderDay(day);
+      }
+      bindViewEvents();
+    }
+
+    function renderSummary() {
+      return `
+        <section class="view active">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">全日程</h2>
+              <p class="section-subtitle">4日分の予定をまとめて確認</p>
+            </div>
+          </div>
+          <div class="summary-grid">
+            ${state.days.map((day) => `
+              <button class="day-card" type="button" data-jump="${day.id}">
+                <div class="day-card-top">
+                  <div>
+                    <h3>${escapeHtml(day.label)} ${escapeHtml(day.area)}</h3>
+                    <div class="day-meta">${escapeHtml(day.date)}・${day.items.length}件</div>
+                  </div>
+                  <span class="day-chip">${escapeHtml(day.label)}</span>
+                </div>
+                <ul class="summary-items">
+                  ${sortItems(day.items).slice(0, 4).map((current) => `
+                    <li>
+                      <span class="summary-time">${escapeHtml(current.time || "未定")}</span>
+                      <span>${escapeHtml(current.title)}</span>
+                    </li>
+                  `).join("")}
+                </ul>
+              </button>
+            `).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderDay(day) {
+      return `
+        <section class="view active">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">${escapeHtml(day.label)} ${escapeHtml(day.area)}</h2>
+              <p class="section-subtitle">${escapeHtml(day.date)}・${day.items.length}件の予定</p>
+            </div>
+            <button class="icon-button" type="button" data-add-item="${day.id}" aria-label="予定を追加">＋</button>
+          </div>
+          <div class="timeline">
+            ${day.items.length ? sortItems(day.items).map((current) => timelineItem(day.id, current)).join("") : `
+              <div class="card empty">予定はまだありません</div>
+            `}
+          </div>
+        </section>
+      `;
+    }
+
+    function timelineItem(dayId, current) {
+      const categoryClass = CATEGORIES[current.category] || "move";
+      return `
+        <article class="timeline-item">
+          <div class="timeline-time">${escapeHtml(current.time || "未定")}</div>
+          <div class="timeline-main">
+            <div class="item-title-row">
+              <h3 class="item-title">${escapeHtml(current.title)}</h3>
+              <div class="item-actions">
+                <button class="mini-button" type="button" data-edit-item="${dayId}:${current.id}" aria-label="編集">✎</button>
+                <button class="mini-button danger" type="button" data-delete-item="${dayId}:${current.id}" aria-label="削除">×</button>
+              </div>
+            </div>
+            ${current.memo ? `<p class="item-note">${escapeHtml(current.memo)}</p>` : ""}
+            <span class="badge ${categoryClass}">${escapeHtml(current.category)}</span>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderChecklist(type, title, placeholder, list) {
+      return `
+        <section class="view active">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">${escapeHtml(title)}</h2>
+              <p class="section-subtitle">${list.filter((item) => item.done).length}/${list.length} 完了</p>
+            </div>
+          </div>
+          <form class="add-row" data-list-form="${type}">
+            <input class="input" name="text" autocomplete="off" required placeholder="${escapeHtml(placeholder)}">
+            <button class="icon-button" type="submit" aria-label="追加">＋</button>
+          </form>
+          <div class="checklist">
+            ${list.length ? list.map((current) => `
+              <label class="check-item ${current.done ? "done" : ""}">
+                <input type="checkbox" ${current.done ? "checked" : ""} data-toggle-check="${type}:${current.id}">
+                <span class="check-text">${escapeHtml(current.text)}</span>
+                <button class="mini-button danger" type="button" data-delete-check="${type}:${current.id}" aria-label="削除">×</button>
+              </label>
+            `).join("") : `<div class="card empty">項目はまだありません</div>`}
+          </div>
+        </section>
+      `;
+    }
+
+    function bindViewEvents() {
+      document.querySelectorAll("[data-jump]").forEach((button) => {
+        button.addEventListener("click", () => setTab(button.dataset.jump));
+      });
+
+      document.querySelectorAll("[data-add-item]").forEach((button) => {
+        button.addEventListener("click", () => openSheet(button.dataset.addItem));
+      });
+
+      document.querySelectorAll("[data-edit-item]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const [dayId, itemId] = button.dataset.editItem.split(":");
+          const current = findDay(dayId).items.find((entry) => entry.id === itemId);
+          openSheet(dayId, current);
+        });
+      });
+
+      document.querySelectorAll("[data-delete-item]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const [dayId, itemId] = button.dataset.deleteItem.split(":");
+          if (!confirm("この予定を削除しますか？")) return;
+          const day = findDay(dayId);
+          day.items = day.items.filter((entry) => entry.id !== itemId);
+          persist();
+          render();
+        });
+      });
+
+      document.querySelectorAll("[data-list-form]").forEach((formElement) => {
+        formElement.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const type = formElement.dataset.listForm;
+          const input = formElement.elements.text;
+          const text = input.value.trim();
+          if (!text) return;
+          listFor(type).push(check(text));
+          input.value = "";
+          persist();
+          render();
+        });
+      });
+
+      document.querySelectorAll("[data-toggle-check]").forEach((input) => {
+        input.addEventListener("change", () => {
+          const [type, id] = input.dataset.toggleCheck.split(":");
+          const current = listFor(type).find((entry) => entry.id === id);
+          current.done = input.checked;
+          persist();
+          render();
+        });
+      });
+
+      document.querySelectorAll("[data-delete-check]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const [type, id] = button.dataset.deleteCheck.split(":");
+          if (!confirm("この項目を削除しますか？")) return;
+          const list = listFor(type);
+          const index = list.findIndex((entry) => entry.id === id);
+          if (index >= 0) list.splice(index, 1);
+          persist();
+          render();
+        });
+      });
+    }
+
+    function openSheet(dayId, current) {
+      document.getElementById("sheetTitle").textContent = current ? "予定を編集" : "予定を追加";
+      document.getElementById("itemDay").value = dayId;
+      document.getElementById("itemId").value = current ? current.id : "";
+      document.getElementById("itemTime").value = current ? current.time : "";
+      document.getElementById("itemTitle").value = current ? current.title : "";
+      document.getElementById("itemMemo").value = current ? current.memo : "";
+      document.getElementById("itemCategory").value = current ? current.category : "移動";
+      sheet.classList.add("open");
+      sheet.setAttribute("aria-hidden", "false");
+      setTimeout(() => document.getElementById("itemTitle").focus(), 230);
+    }
+
+    function closeSheet() {
+      sheet.classList.remove("open");
+      sheet.setAttribute("aria-hidden", "true");
+      form.reset();
+    }
+
+    function findDay(dayId) {
+      return state.days.find((day) => day.id === dayId);
+    }
+
+    function listFor(type) {
+      return type === "packing" ? state.packing : state.todos;
+    }
+
+    function sortItems(items) {
+      return [...items].sort((a, b) => timeRank(a.time) - timeRank(b.time));
+    }
+
+    function timeRank(value) {
+      if (!value) return 9999;
+      const normalized = value.trim();
+      const match = normalized.match(/^(\d{1,2})[:：](\d{2})/);
+      if (match) return Number(match[1]) * 60 + Number(match[2]);
+      const wordRanks = {
+        "早朝": 360,
+        "朝": 480,
+        "午前": 540,
+        "昼": 720,
+        "昼食": 720,
+        "午後": 780,
+        "夕方": 1020,
+        "夕食": 1080,
+        "夜": 1200,
+        "深夜": 1380
+      };
+      return wordRanks[normalized] || 9000;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>
