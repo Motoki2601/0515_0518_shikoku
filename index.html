@@ -382,157 +382,6 @@
       overflow-wrap: anywhere;
     }
 
-    .pin-map {
-      position: relative;
-      height: 286px;
-      margin-top: 2px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--hairline);
-      background:
-        radial-gradient(circle at 22% 20%, rgba(0, 122, 255, 0.13), transparent 30%),
-        linear-gradient(145deg, #F9F9FA 0%, #ECECEF 100%);
-    }
-
-    .pin-map::before {
-      content: "";
-      position: absolute;
-      left: 38px;
-      right: 26px;
-      top: 54px;
-      bottom: 34px;
-      background: #FFFFFF;
-      border: 1px solid rgba(28, 28, 30, 0.08);
-      border-radius: 58% 42% 50% 46% / 38% 46% 54% 62%;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 12px 26px rgba(28, 28, 30, 0.06);
-      transform: rotate(-11deg);
-    }
-
-    .map-title {
-      position: absolute;
-      left: 14px;
-      top: 12px;
-      z-index: 2;
-      color: var(--subtext);
-      font-size: 12px;
-      font-weight: 850;
-      line-height: 1.35;
-    }
-
-    .map-route {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .map-route path {
-      fill: none;
-      stroke: rgba(233, 130, 33, 0.72);
-      stroke-width: 4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 7 8;
-    }
-
-    .map-region {
-      position: absolute;
-      z-index: 1;
-      color: rgba(127, 127, 134, 0.58);
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0;
-    }
-
-    .map-region.kagawa {
-      left: 63%;
-      top: 23%;
-    }
-
-    .map-region.kochi {
-      left: 39%;
-      top: 71%;
-    }
-
-    .map-region.ehime {
-      left: 14%;
-      top: 38%;
-    }
-
-    .pin {
-      position: absolute;
-      left: var(--x);
-      top: var(--y);
-      z-index: 3;
-      transform: translate(-50%, -50%);
-      display: grid;
-      justify-items: center;
-      gap: 4px;
-      min-width: 52px;
-    }
-
-    .pin-dot {
-      width: 26px;
-      height: 26px;
-      display: grid;
-      place-items: center;
-      border: 2px solid #fff;
-      border-radius: 999px;
-      box-shadow: 0 4px 10px rgba(28, 28, 30, 0.17);
-      background: var(--accent);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .pin-dot.airport {
-      background: var(--move);
-    }
-
-    .pin-dot.sightseeing {
-      background: var(--sight);
-    }
-
-    .pin-dot.food {
-      background: var(--food);
-    }
-
-    .pin-dot.hotel {
-      background: var(--stay);
-    }
-
-    .pin-name {
-      max-width: 86px;
-      padding: 3px 6px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text);
-      font-size: 10px;
-      font-weight: 800;
-      line-height: 1.2;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(28, 28, 30, 0.08);
-    }
-
-    .map-legend {
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      bottom: 10px;
-      z-index: 4;
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      padding: 7px 8px;
-      border: 1px solid rgba(28, 28, 30, 0.08);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.86);
-      backdrop-filter: blur(12px);
-      color: var(--subtext);
-      font-size: 10px;
-      font-weight: 850;
-    }
-
     .hotel-tags,
     .outfit-grid {
       display: flex;
@@ -1204,18 +1053,6 @@
         routeDay("5/17", "高知 → 道後温泉（車 約2時間半）", "松山城、道後温泉本館", "ホテル古湧園遥"),
         routeDay("5/18", "道後温泉 → 松山空港（車 約20分） → 東京", "松山市内（午前のみ）", "—")
       ],
-      mapPins: [
-        pin("高松空港", 34.2149, 134.0147, 1, "airport"),
-        pin("栗林公園", 34.3299, 134.0458, 1, "sightseeing"),
-        pin("ホテルエリアワン高松", 34.3507, 134.0469, 1, "hotel"),
-        pin("高知城", 33.5608, 133.5315, 2, "sightseeing"),
-        pin("ひろめ市場", 33.5601, 133.5359, 2, "food"),
-        pin("オリエントホテル高知", 33.5589, 133.5312, 2, "hotel"),
-        pin("松山城", 33.8456, 132.7655, 3, "sightseeing"),
-        pin("道後温泉本館", 33.8521, 132.7864, 3, "sightseeing"),
-        pin("ホテル古湧園遥", 33.8521, 132.7864, 3, "hotel"),
-        pin("松山空港", 33.8277, 132.7004, 4, "airport")
-      ],
       hotels: [
         hotel("ホテルエリアワン高松", "1泊目", "香川県高松市西の丸町2-23", "JR高松駅から徒歩約5分", "トリプル", ["コインランドリー（1F）あり", "大浴場なし"], "本館・別館の2棟あり。チェックインは本館で行う"),
         hotel("オリエントホテル高知", "2泊目", "高知県高知市升形5-37", "路面電車「グランド通り」電停すぐ", "トリプル", ["コインランドリー（有料）あり", "大浴場なし", "朝食ビュッフェ"], "24時間フリードリンクラウンジあり"),
@@ -1383,10 +1220,6 @@
       return { date, route, highlights, stay };
     }
 
-    function pin(name, lat, lng, day, type) {
-      return { name, lat, lng, day, type };
-    }
-
     function hotel(name, night, address, access, room, facilities, note) {
       return { name, night, address, access, room, facilities, note };
     }
@@ -1435,7 +1268,6 @@
         ...(savedState.tripInfo || {})
       };
       nextState.routeDays = savedState.routeDays || JSON.parse(JSON.stringify(initialData.routeDays));
-      nextState.mapPins = savedState.mapPins || JSON.parse(JSON.stringify(initialData.mapPins));
       nextState.hotels = savedState.hotels || JSON.parse(JSON.stringify(initialData.hotels));
       nextState.amenityRows = savedState.amenityRows || JSON.parse(JSON.stringify(initialData.amenityRows));
       nextState.outfitDays = savedState.outfitDays || JSON.parse(JSON.stringify(initialData.outfitDays));
@@ -1516,7 +1348,6 @@
           ${renderFlights()}
           ${renderTripInfo()}
           ${renderRouteOverview()}
-          ${renderPinMap()}
           <div class="summary-grid">
             ${state.days.map((day) => `
               <button class="day-card" type="button" data-jump="${day.id}">
@@ -1576,41 +1407,6 @@
               </li>
             `).join("")}
           </ul>
-        </section>
-      `;
-    }
-
-    function renderPinMap() {
-      const routePins = [
-        { name: "高松", x: 72, y: 28, day: 1, type: "airport" },
-        { name: "高知", x: 44, y: 72, day: 2, type: "food" },
-        { name: "道後温泉", x: 22, y: 44, day: 3, type: "sightseeing" },
-        { name: "松山空港", x: 18, y: 33, day: 4, type: "airport" }
-      ];
-      return `
-        <section class="info-card">
-          <h3>四国周遊ルート</h3>
-          <div class="pin-map" aria-label="高松から高知、道後温泉、松山空港へ進む四国周遊ルート">
-            <div class="map-title">高松IN → 高知 → 道後温泉 → 松山OUT</div>
-            <svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M72 28 C66 40, 55 57, 44 72 C34 64, 24 54, 22 44 C22 38, 18 35, 18 33" />
-            </svg>
-            <span class="map-region kagawa">香川</span>
-            <span class="map-region kochi">高知</span>
-            <span class="map-region ehime">愛媛</span>
-            ${routePins.map((current) => `
-              <div class="pin" style="--x:${current.x}%; --y:${current.y}%;" title="${escapeHtml(current.name)}">
-                <span class="pin-dot ${escapeHtml(current.type)}">${current.day}</span>
-                <span class="pin-name">Day${current.day} ${escapeHtml(current.name)}</span>
-              </div>
-            `).join("")}
-            <div class="map-legend">
-              <span>1 高松</span>
-              <span>2 高知</span>
-              <span>3 道後</span>
-              <span>4 松山空港</span>
-            </div>
-          </div>
         </section>
       `;
     }
