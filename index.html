@@ -181,7 +181,6 @@
 
     .flight-card {
       padding: 16px;
-      margin-bottom: 14px;
       background: var(--card);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -490,7 +489,7 @@
     }
 
     .packing-group {
-      margin-bottom: 14px;
+      margin: 0;
     }
 
     .packing-group-title {
@@ -694,7 +693,28 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) 54px;
       gap: 10px;
-      margin: 0 0 12px;
+      margin: 0;
+    }
+
+    .packing-add-row {
+      grid-template-columns: minmax(0, 1fr) 54px;
+    }
+
+    .packing-add-row .select {
+      grid-column: 1 / -1;
+    }
+
+    .view > .flight-card + .info-card,
+    .view > .info-card + .info-card,
+    .view > .info-card + .summary-grid,
+    .view > .timeline + .info-card,
+    .view > .packing-group + .packing-group {
+      margin-top: 14px;
+    }
+
+    .view > .add-row + .packing-group,
+    .view > .add-row + .checklist {
+      margin-top: 12px;
     }
 
     .input,
@@ -1426,14 +1446,6 @@
               <div class="meta-label">移動手段</div>
               <div class="meta-value">${escapeHtml(info.transport)}</div>
             </div>
-            <div class="meta-item">
-              <div class="meta-label">メンバー</div>
-              <div class="meta-value">${escapeHtml(info.members)}</div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-label">ルート</div>
-              <div class="meta-value">${escapeHtml(info.route)}</div>
-            </div>
           </div>
         </section>
       `;
@@ -1645,7 +1657,11 @@
               <p class="section-subtitle">${done}/${total} 完了</p>
             </div>
           </div>
-          <form class="add-row" data-list-form="packing">
+          <form class="add-row packing-add-row" data-list-form="packing">
+            <select class="select" name="groupId" aria-label="追加先カテゴリ">
+              ${state.packingGroups.map((group) => `<option value="${escapeHtml(group.id)}">${escapeHtml(group.title)}</option>`).join("")}
+              <option value="__extra">追加した持ち物</option>
+            </select>
             <input class="input" name="text" autocomplete="off" required placeholder="持ち物を追加">
             <button class="icon-button" type="submit" aria-label="追加">＋</button>
           </form>
@@ -1717,7 +1733,11 @@
           const input = formElement.elements.text;
           const text = input.value.trim();
           if (!text) return;
-          listFor(type).push(check(text));
+          if (type === "packing") {
+            addPackingItem(text, formElement.elements.groupId.value);
+          } else {
+            listFor(type).push(check(text));
+          }
           input.value = "";
           persist();
           render();
@@ -1808,6 +1828,17 @@
 
     function listFor(type) {
       return type === "packing" ? state.packing : state.todos;
+    }
+
+    function addPackingItem(text, groupId) {
+      if (groupId && groupId !== "__extra") {
+        const group = state.packingGroups.find((current) => current.id === groupId);
+        if (group) {
+          group.items.push(check(text));
+          return;
+        }
+      }
+      state.packing.push(check(text));
     }
 
     function listForCheckKey(key) {
