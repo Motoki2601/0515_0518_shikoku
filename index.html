@@ -1387,7 +1387,6 @@
           ${renderTripInfo()}
           ${renderRouteOverview()}
           ${renderPinMap()}
-          ${renderOutfits()}
           <div class="summary-grid">
             ${state.days.map((day) => `
               <button class="day-card" type="button" data-jump="${day.id}">
@@ -1526,25 +1525,6 @@
       `;
     }
 
-    function renderOutfits() {
-      return `
-        <section class="info-card">
-          <h3>日程別コーディネート</h3>
-          <div class="outfit-list">
-            ${state.outfitDays.map((current) => `
-              <article class="outfit-card">
-                <div class="outfit-date">${escapeHtml(current.date)}</div>
-                <div class="outfit-grid">
-                  ${current.items.map(([label, value]) => `<span class="soft-tag">${escapeHtml(label)}：${escapeHtml(value)}</span>`).join("")}
-                </div>
-                <div class="outfit-point">${escapeHtml(current.point)}</div>
-              </article>
-            `).join("")}
-          </div>
-        </section>
-      `;
-    }
-
     function renderFlights() {
       return `
         <section class="flight-card" aria-label="フライト情報">
@@ -1594,12 +1574,12 @@
             </div>
             <button class="icon-button" type="button" data-add-item="${day.id}" aria-label="予定を追加">＋</button>
           </div>
-          ${renderDayHotel(day.id)}
           <div class="timeline">
             ${day.items.length ? sortItems(day.items).map((current) => timelineItem(day.id, current)).join("") : `
               <div class="card empty">予定はまだありません</div>
             `}
           </div>
+          ${renderDayHotel(day.id)}
         </section>
       `;
     }
