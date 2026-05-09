@@ -1359,8 +1359,17 @@
       nextState.amenityRows = savedState.amenityRows || JSON.parse(JSON.stringify(initialData.amenityRows));
       nextState.outfitDays = savedState.outfitDays || JSON.parse(JSON.stringify(initialData.outfitDays));
       nextState.packingGroups = savedState.packingGroups || JSON.parse(JSON.stringify(initialData.packingGroups));
+      migrateLoosePackingItems(nextState);
       persistState(nextState);
       return nextState;
+    }
+
+    function migrateLoosePackingItems(nextState) {
+      if (!nextState.packing || !nextState.packing.length) return;
+      const fallbackGroup = nextState.packingGroups.find((group) => group.title === "その他") || nextState.packingGroups.at(-1);
+      if (!fallbackGroup) return;
+      fallbackGroup.items.push(...nextState.packing);
+      nextState.packing = [];
     }
 
     function persist() {
@@ -1645,9 +1654,8 @@
     function renderPacking() {
       const groupedTotal = state.packingGroups.reduce((total, group) => total + group.items.length, 0);
       const groupedDone = state.packingGroups.reduce((total, group) => total + group.items.filter((item) => item.done).length, 0);
-      const legacyDone = state.packing.filter((item) => item.done).length;
-      const total = groupedTotal + state.packing.length;
-      const done = groupedDone + legacyDone;
+      const total = groupedTotal;
+      const done = groupedDone;
 
       return `
         <section class="view active">
@@ -1660,7 +1668,6 @@
           <form class="add-row packing-add-row" data-list-form="packing">
             <select class="select" name="groupId" aria-label="追加先カテゴリ">
               ${state.packingGroups.map((group) => `<option value="${escapeHtml(group.id)}">${escapeHtml(group.title)}</option>`).join("")}
-              <option value="__extra">追加した持ち物</option>
             </select>
             <input class="input" name="text" autocomplete="off" required placeholder="持ち物を追加">
             <button class="icon-button" type="submit" aria-label="追加">＋</button>
@@ -1673,12 +1680,6 @@
               </div>
             </section>
           `).join("")}
-          <section class="packing-group">
-            <h3 class="packing-group-title">追加した持ち物</h3>
-            <div class="checklist">
-              ${state.packing.length ? state.packing.map((current) => checkItemMarkup("packing", current)).join("") : `<div class="card empty">追加項目はまだありません</div>`}
-            </div>
-          </section>
         </section>
       `;
     }
@@ -1831,14 +1832,13 @@
     }
 
     function addPackingItem(text, groupId) {
-      if (groupId && groupId !== "__extra") {
-        const group = state.packingGroups.find((current) => current.id === groupId);
-        if (group) {
-          group.items.push(check(text));
-          return;
-        }
+      const group = state.packingGroups.find((current) => current.id === groupId);
+      if (group) {
+        group.items.push(check(text));
+        return;
       }
-      state.packing.push(check(text));
+      const fallbackGroup = state.packingGroups.find((current) => current.title === "その他") || state.packingGroups.at(-1);
+      if (fallbackGroup) fallbackGroup.items.push(check(text));
     }
 
     function listForCheckKey(key) {
