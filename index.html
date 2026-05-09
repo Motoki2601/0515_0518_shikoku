@@ -1296,7 +1296,7 @@
       packingGroups: [
         packingGroup("搭乗・移動（必須）", ["航空券（eチケット/アプリ）", "身分証明書（運転免許証 兼用）", "クレジット/デビットカード", "現金（1〜2万円推奨）", "スマートフォン", "充電ケーブル・モバイルバッテリー", "イヤホン"]),
         packingGroup("レンタカー移動", ["運転免許証", "ETC/クレジットカード（高速料金）"]),
-        packingGroup("衣類", ["Tシャツ × 3〜4枚", "薄手カーディガン × 1枚", "開襟シャツ or 無地シャツ × 1枚", "ラングラー ボトムス 黒 × 1本", "ラングラー ボトムス グレー × 1本", "下着・靴下 × 4日分", "Salomon XA PRO 3D", "ランニングシューズ × 1足"]),
+        packingGroup("衣類", []),
         packingGroup("天気・雨対策", ["折りたたみ傘", "日焼け止め", "サングラス"]),
         packingGroup("洗面・衛生", ["洗顔・基礎化粧品"]),
         packingGroup("健康・緊急", ["常備薬・処方薬", "酔い止め薬", "絆創膏・市販薬", "保険証/マイナカード"]),
@@ -1455,7 +1455,19 @@
     }
 
     function pruneRemovedPackingItems(nextState) {
-      const removedItems = new Set(["スマホホルダー（任意）", "こだわりのシャンプー等", "カメラ（任意）"]);
+      const removedItems = new Set([
+        "スマホホルダー（任意）",
+        "こだわりのシャンプー等",
+        "カメラ（任意）",
+        "Tシャツ × 3〜4枚",
+        "薄手カーディガン × 1枚",
+        "開襟シャツ or 無地シャツ × 1枚",
+        "ラングラー ボトムス 黒 × 1本",
+        "ラングラー ボトムス グレー × 1本",
+        "下着・靴下 × 4日分",
+        "Salomon XA PRO 3D",
+        "ランニングシューズ × 1足"
+      ]);
       nextState.packingGroups.forEach((group) => {
         group.items = group.items.filter((entry) => !removedItems.has(entry.text));
       });
