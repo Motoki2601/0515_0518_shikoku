@@ -6,18 +6,19 @@
   <title>四国旅のしおり</title>
   <style>
     :root {
-      --bg: #F2F2F7;
-      --card: #FFFFFF;
-      --accent: #FF9500;
+      --bg: #F3F3F5;
+      --card: #FEFEFE;
+      --accent: #E98221;
       --text: #1C1C1E;
-      --subtext: #8E8E93;
-      --line: #E5E5EA;
+      --subtext: #7F7F86;
+      --line: #E1E1E6;
+      --hairline: rgba(28, 28, 30, 0.08);
       --move: #007AFF;
       --sight: #34C759;
-      --food: #FF9500;
+      --food: #E98221;
       --stay: #AF52DE;
       --danger: #FF3B30;
-      --shadow: 0 8px 22px rgba(28, 28, 30, 0.08);
+      --shadow: 0 10px 26px rgba(28, 28, 30, 0.055);
       --radius: 12px;
       --tab-height: 78px;
     }
@@ -57,20 +58,20 @@
       max-width: 430px;
       min-height: 100vh;
       margin: 0 auto;
-      background: var(--bg);
+      background: linear-gradient(180deg, #F7F7F8 0%, var(--bg) 140px);
       position: relative;
       overflow-x: hidden;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 0 0 1px var(--hairline);
     }
 
     .header {
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: calc(18px + env(safe-area-inset-top)) 20px 16px;
-      background: rgba(242, 242, 247, 0.88);
-      border-bottom: 1px solid rgba(229, 229, 234, 0.7);
-      backdrop-filter: saturate(180%) blur(18px);
+      padding: calc(18px + env(safe-area-inset-top)) 20px 15px;
+      background: rgba(247, 247, 248, 0.86);
+      border-bottom: 1px solid rgba(225, 225, 230, 0.72);
+      backdrop-filter: saturate(150%) blur(20px);
     }
 
     .eyebrow {
@@ -83,9 +84,10 @@
 
     h1 {
       margin: 0;
-      font-size: 30px;
+      font-size: 29px;
       line-height: 1.15;
       letter-spacing: 0;
+      font-weight: 850;
     }
 
     .subtitle {
@@ -157,18 +159,19 @@
     .primary-button {
       color: #fff;
       background: var(--accent);
-      box-shadow: 0 6px 14px rgba(255, 149, 0, 0.25);
+      box-shadow: 0 5px 12px rgba(233, 130, 33, 0.18);
     }
 
     .text-button {
       color: var(--accent);
-      background: rgba(255, 149, 0, 0.12);
+      background: rgba(233, 130, 33, 0.1);
       padding: 0 16px;
       box-shadow: none;
     }
 
     .card {
       background: var(--card);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
@@ -182,6 +185,7 @@
     .flight-card {
       padding: 16px;
       background: var(--card);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
@@ -212,9 +216,9 @@
     .flight-panel {
       min-width: 0;
       padding: 12px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--hairline);
       border-radius: 12px;
-      background: #fff;
+      background: #FBFBFC;
     }
 
     .flight-label {
@@ -283,6 +287,7 @@
     .info-card {
       padding: 16px;
       background: var(--card);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
@@ -301,9 +306,9 @@
 
     .meta-item {
       padding: 10px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--hairline);
       border-radius: 12px;
-      background: #fff;
+      background: #FBFBFC;
     }
 
     .meta-label,
@@ -338,9 +343,9 @@
     .hotel-card,
     .outfit-card {
       padding: 12px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--hairline);
       border-radius: 12px;
-      background: #fff;
+      background: #FBFBFC;
     }
 
     .route-row {
@@ -505,6 +510,7 @@
       color: inherit;
       text-align: left;
       background: var(--card);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       transition: transform 140ms ease, box-shadow 140ms ease;
@@ -512,7 +518,7 @@
 
     .day-card:active {
       transform: scale(0.985);
-      box-shadow: 0 4px 12px rgba(28, 28, 30, 0.08);
+      box-shadow: 0 4px 12px rgba(28, 28, 30, 0.06);
     }
 
     .day-card-top {
@@ -583,6 +589,7 @@
       gap: 12px;
       padding: 14px;
       background: var(--card);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       animation: insertItem 220ms ease-out both;
@@ -633,7 +640,7 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: #F2F2F7;
+      background: #F1F1F3;
       color: var(--subtext);
       display: inline-grid;
       place-items: center;
@@ -724,7 +731,7 @@
       min-height: 48px;
       border: 1px solid var(--line);
       border-radius: 12px;
-      background: #fff;
+      background: #FEFEFE;
       color: var(--text);
       padding: 12px 13px;
       outline: none;
@@ -733,8 +740,8 @@
     .input:focus,
     .textarea:focus,
     .select:focus {
-      border-color: rgba(255, 149, 0, 0.75);
-      box-shadow: 0 0 0 4px rgba(255, 149, 0, 0.14);
+      border-color: rgba(233, 130, 33, 0.72);
+      box-shadow: 0 0 0 4px rgba(233, 130, 33, 0.13);
     }
 
     .textarea {
@@ -755,6 +762,7 @@
       gap: 8px;
       padding: 10px 10px 10px 14px;
       background: var(--card);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
@@ -789,7 +797,7 @@
       padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
       background: rgba(255, 255, 255, 0.94);
       border-top: 1px solid var(--line);
-      backdrop-filter: saturate(180%) blur(18px);
+      backdrop-filter: saturate(150%) blur(18px);
     }
 
     .tab {
@@ -808,7 +816,7 @@
 
     .tab.active {
       color: var(--accent);
-      background: rgba(255, 149, 0, 0.1);
+      background: rgba(233, 130, 33, 0.1);
     }
 
     .tab-icon {
@@ -1205,22 +1213,16 @@
         }
       ],
       todos: [],
-      packing: [
-        check("充電器"),
-        check("常備薬"),
-        check("着替え（4日分）"),
-        check("日焼け止め"),
-        check("エコバッグ")
-      ],
+      packing: [],
       packingGroups: [
         packingGroup("搭乗・移動（必須）", ["航空券（eチケット/アプリ）", "身分証明書（運転免許証 兼用）", "クレジット/デビットカード", "現金（1〜2万円推奨）", "スマートフォン", "充電ケーブル・モバイルバッテリー", "イヤホン"]),
-        packingGroup("レンタカー移動", ["運転免許証", "ETC/クレジットカード（高速料金）", "スマホホルダー（任意）"]),
+        packingGroup("レンタカー移動", ["運転免許証", "ETC/クレジットカード（高速料金）"]),
         packingGroup("衣類", ["Tシャツ × 3〜4枚", "薄手カーディガン × 1枚", "開襟シャツ or 無地シャツ × 1枚", "ラングラー ボトムス 黒 × 1本", "ラングラー ボトムス グレー × 1本", "下着・靴下 × 4日分", "Salomon XA PRO 3D", "ランニングシューズ × 1足"]),
         packingGroup("天気・雨対策", ["折りたたみ傘", "日焼け止め", "サングラス"]),
-        packingGroup("洗面・衛生", ["洗顔・基礎化粧品", "こだわりのシャンプー等"]),
+        packingGroup("洗面・衛生", ["洗顔・基礎化粧品"]),
         packingGroup("健康・緊急", ["常備薬・処方薬", "酔い止め薬", "絆創膏・市販薬", "保険証/マイナカード"]),
         packingGroup("ランニンググッズ", ["ランニングシューズ", "ランシャツ（速乾）× 1枚", "ランショーツ × 1本", "ランニングソックス × 1足"]),
-        packingGroup("その他", ["スーツケース/バッグ", "エコバッグ・サブバッグ（お土産用）", "ビニール袋（数枚）", "カメラ（任意）"])
+        packingGroup("その他", ["スーツケース/バッグ", "エコバッグ・サブバッグ（お土産用）", "ビニール袋（数枚）"])
       ]
     };
 
@@ -1360,6 +1362,7 @@
       nextState.outfitDays = savedState.outfitDays || JSON.parse(JSON.stringify(initialData.outfitDays));
       nextState.packingGroups = savedState.packingGroups || JSON.parse(JSON.stringify(initialData.packingGroups));
       migrateLoosePackingItems(nextState);
+      pruneRemovedPackingItems(nextState);
       persistState(nextState);
       return nextState;
     }
@@ -1370,6 +1373,13 @@
       if (!fallbackGroup) return;
       fallbackGroup.items.push(...nextState.packing);
       nextState.packing = [];
+    }
+
+    function pruneRemovedPackingItems(nextState) {
+      const removedItems = new Set(["スマホホルダー（任意）", "こだわりのシャンプー等", "カメラ（任意）"]);
+      nextState.packingGroups.forEach((group) => {
+        group.items = group.items.filter((entry) => !removedItems.has(entry.text));
+      });
     }
 
     function persist() {
