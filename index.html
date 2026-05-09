@@ -275,6 +275,231 @@
       overflow-wrap: anywhere;
     }
 
+    .info-stack {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .info-card {
+      padding: 16px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .info-card h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .meta-item {
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .meta-label,
+    .small-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .meta-value {
+      margin-top: 4px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .route-list,
+    .hotel-list,
+    .memo-list,
+    .outfit-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .route-row,
+    .hotel-card,
+    .outfit-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .route-row {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .route-day {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
+    .route-title,
+    .hotel-name,
+    .outfit-date {
+      font-size: 15px;
+      font-weight: 850;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .route-detail,
+    .hotel-detail,
+    .outfit-point,
+    .memo-list li {
+      margin-top: 4px;
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .pin-map {
+      position: relative;
+      height: 260px;
+      margin-top: 2px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(0, 122, 255, 0.14), rgba(52, 199, 89, 0.12)),
+        radial-gradient(circle at 20% 20%, rgba(255, 149, 0, 0.22), transparent 28%),
+        #fff;
+    }
+
+    .pin-map::before {
+      content: "";
+      position: absolute;
+      inset: 24px 34px;
+      border: 2px dashed rgba(142, 142, 147, 0.42);
+      border-radius: 48% 42% 45% 50%;
+      transform: rotate(-16deg);
+    }
+
+    .pin {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -100%);
+      display: grid;
+      justify-items: center;
+      gap: 3px;
+      min-width: 42px;
+    }
+
+    .pin-dot {
+      width: 18px;
+      height: 18px;
+      border: 3px solid #fff;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      background: var(--accent);
+    }
+
+    .pin-dot.airport {
+      background: var(--move);
+    }
+
+    .pin-dot.sightseeing {
+      background: var(--sight);
+    }
+
+    .pin-dot.food {
+      background: var(--food);
+    }
+
+    .pin-dot.hotel {
+      background: var(--stay);
+    }
+
+    .pin-name {
+      max-width: 74px;
+      padding: 2px 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--text);
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(28, 28, 30, 0.08);
+    }
+
+    .hotel-tags,
+    .outfit-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .soft-tag {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 149, 0, 0.12);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .amenity-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .amenity-table th,
+    .amenity-table td {
+      padding: 8px 5px;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .amenity-table th:first-child,
+    .amenity-table td:first-child {
+      text-align: left;
+      font-weight: 800;
+    }
+
+    .packing-group {
+      margin-bottom: 14px;
+    }
+
+    .packing-group-title {
+      margin: 0 6px 8px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
     .day-card {
       width: 100%;
       padding: 16px;
@@ -860,6 +1085,65 @@
         outbound: flight("往路", "JAL475", "東京（羽田）", "07:50", "高松", "09:10", "33K", "EW2LXE"),
         return: flight("復路", "ANA596", "松山", "16:45", "東京（羽田）", "18:20", "", "0390")
       },
+      tripInfo: {
+        period: "2026年5月15日（金）〜 5月18日（月）",
+        transport: "飛行機（JAL/ANA）＋ レンタカー",
+        members: "友人グループ（3名、トリプル部屋）",
+        route: "高松空港 IN → 松山空港 OUT（反時計回り）"
+      },
+      routeDays: [
+        routeDay("5/15", "東京 → 高松空港 → 高松市内", "栗林公園", "ホテルエリアワン高松"),
+        routeDay("5/16", "高松 → 高知（車 約2時間）", "高知城、ひろめ市場", "オリエントホテル高知"),
+        routeDay("5/17", "高知 → 道後温泉（車 約2時間半）", "松山城、道後温泉本館", "ホテル古湧園遥"),
+        routeDay("5/18", "道後温泉 → 松山空港（車 約20分） → 東京", "松山市内（午前のみ）", "—")
+      ],
+      mapPins: [
+        pin("高松空港", 34.2149, 134.0147, 1, "airport"),
+        pin("栗林公園", 34.3299, 134.0458, 1, "sightseeing"),
+        pin("ホテルエリアワン高松", 34.3507, 134.0469, 1, "hotel"),
+        pin("高知城", 33.5608, 133.5315, 2, "sightseeing"),
+        pin("ひろめ市場", 33.5601, 133.5359, 2, "food"),
+        pin("オリエントホテル高知", 33.5589, 133.5312, 2, "hotel"),
+        pin("松山城", 33.8456, 132.7655, 3, "sightseeing"),
+        pin("道後温泉本館", 33.8521, 132.7864, 3, "sightseeing"),
+        pin("ホテル古湧園遥", 33.8521, 132.7864, 3, "hotel"),
+        pin("松山空港", 33.8277, 132.7004, 4, "airport")
+      ],
+      hotels: [
+        hotel("ホテルエリアワン高松", "1泊目", "香川県高松市西の丸町2-23", "JR高松駅から徒歩約5分", "トリプル", ["コインランドリー（1F）あり", "大浴場なし"], "本館・別館の2棟あり。チェックインは本館で行う"),
+        hotel("オリエントホテル高知", "2泊目", "高知県高知市升形5-37", "路面電車「グランド通り」電停すぐ", "トリプル", ["コインランドリー（有料）あり", "大浴場なし", "朝食ビュッフェ"], "24時間フリードリンクラウンジあり"),
+        hotel("ホテル古湧園遥", "3泊目", "愛媛県松山市（道後温泉エリア）", "道後温泉本館まで徒歩圏内", "トリプル", ["大浴場・露天風呂あり", "コインランドリー要確認"], "道後温泉本館へエレベーターで直結。ロビーで夜間ピアノ生演奏あり")
+      ],
+      amenityRows: [
+        ["タオル・バスタオル", "✅", "✅", "✅"],
+        ["ドライヤー", "✅", "✅", "✅"],
+        ["シャンプー・ボディソープ", "✅", "✅", "✅"],
+        ["歯ブラシ", "✅", "✅", "✅"],
+        ["髭剃り", "✅", "✅", "✅"],
+        ["パジャマ/浴衣", "✅浴衣", "✅パジャマ", "✅両方"],
+        ["コインランドリー", "✅", "✅", "❓要確認"],
+        ["大浴場", "❌", "❌", "✅"]
+      ],
+      outfitDays: [
+        outfit("5/15 移動日 → 高松泊", [["トップス", "無地Tシャツ（白or黒）"], ["ボトムス", "ラングラー グレー"], ["シューズ", "Salomon XA PRO 3D"], ["アウター", "薄手カーディガン"]], "移動が長い日。カーディガンは機内と帰りの4日目に兼用。"),
+        outfit("5/16 観光day → 高知泊", [["トップス", "ボーダーorプリントT"], ["ボトムス", "ラングラー 黒"], ["シューズ", "Salomon XA PRO 3D"], ["小物", "サングラス"]], "黒ラングラー×Salomonはどんなトップスとも合う。高知城・ひろめ市場はアクティブ移動あり。"),
+        outfit("5/17 グルメ・道後温泉 → 古湧園泊", [["トップス", "開襟シャツ（薄手）"], ["ボトムス", "ラングラー グレー"], ["シューズ", "Salomon XA PRO 3D"], ["夜", "古湧園の浴衣＋下駄"]], "昼はシャツできれいめに。夜は浴衣で道後温泉本館周辺を散策。"),
+        outfit("5/18 帰宅日", [["トップス", "残りのTシャツ"], ["ボトムス", "ラングラー 黒"], ["シューズ", "Salomon XA PRO 3D"], ["アウター", "カーディガン"]], "帰りはお土産で荷物が増える。着回しで荷物を最小限に。")
+      ],
+      weatherNotes: [
+        "5月中旬の四国は気温20〜23℃前後",
+        "雨の可能性あり。折りたたみ傘必須",
+        "高知はスコール的な雨が降ることもある",
+        "XA PRO 3D GORE-TEXモデルなら雨天でも使いやすい"
+      ],
+      miscNotes: [
+        "現金は地方エリアでカード不可の店が多いため、一人あたま1〜2万円を推奨",
+        "ひろめ市場は週末混雑するため、到着後なるべく早めに入る",
+        "道後温泉本館は6:00〜23:00営業（入浴料700円〜）",
+        "松山城はロープウェイ/リフトで登れる（9:00〜16:30）",
+        "コインランドリーは1・2日目のホテルで使用可能",
+        "ランニングは2日目（高知）の朝が最適。高知城周辺が走りやすい"
+      ],
       days: [
         {
           id: "day1",
@@ -921,6 +1205,16 @@
         check("着替え（4日分）"),
         check("日焼け止め"),
         check("エコバッグ")
+      ],
+      packingGroups: [
+        packingGroup("搭乗・移動（必須）", ["航空券（eチケット/アプリ）", "身分証明書（運転免許証 兼用）", "クレジット/デビットカード", "現金（1〜2万円推奨）", "スマートフォン", "充電ケーブル・モバイルバッテリー", "イヤホン"]),
+        packingGroup("レンタカー移動", ["運転免許証", "ETC/クレジットカード（高速料金）", "スマホホルダー（任意）"]),
+        packingGroup("衣類", ["Tシャツ × 3〜4枚", "薄手カーディガン × 1枚", "開襟シャツ or 無地シャツ × 1枚", "ラングラー ボトムス 黒 × 1本", "ラングラー ボトムス グレー × 1本", "下着・靴下 × 4日分", "Salomon XA PRO 3D", "ランニングシューズ × 1足"]),
+        packingGroup("天気・雨対策", ["折りたたみ傘", "日焼け止め", "サングラス"]),
+        packingGroup("洗面・衛生", ["洗顔・基礎化粧品", "こだわりのシャンプー等"]),
+        packingGroup("健康・緊急", ["常備薬・処方薬", "酔い止め薬", "絆創膏・市販薬", "保険証/マイナカード"]),
+        packingGroup("ランニンググッズ", ["ランニングシューズ", "ランシャツ（速乾）× 1枚", "ランショーツ × 1本", "ランニングソックス × 1足"]),
+        packingGroup("その他", ["スーツケース/バッグ", "エコバッグ・サブバッグ（お土産用）", "ビニール袋（数枚）", "カメラ（任意）"])
       ]
     };
 
@@ -998,8 +1292,28 @@
       return { label, number, departPlace, departTime, arrivePlace, arriveTime, seat, reservation };
     }
 
+    function routeDay(date, route, highlights, stay) {
+      return { date, route, highlights, stay };
+    }
+
+    function pin(name, lat, lng, day, type) {
+      return { name, lat, lng, day, type };
+    }
+
+    function hotel(name, night, address, access, room, facilities, note) {
+      return { name, night, address, access, room, facilities, note };
+    }
+
+    function outfit(date, items, point) {
+      return { date, items, point };
+    }
+
     function check(text) {
       return { id: createId(), text, done: false };
+    }
+
+    function packingGroup(title, items) {
+      return { id: createId(), title, items: items.map(check) };
     }
 
     function createId() {
@@ -1029,6 +1343,18 @@
         ...JSON.parse(JSON.stringify(initialData.flights)),
         ...(savedState.flights || {})
       };
+      nextState.tripInfo = {
+        ...JSON.parse(JSON.stringify(initialData.tripInfo)),
+        ...(savedState.tripInfo || {})
+      };
+      nextState.routeDays = savedState.routeDays || JSON.parse(JSON.stringify(initialData.routeDays));
+      nextState.mapPins = savedState.mapPins || JSON.parse(JSON.stringify(initialData.mapPins));
+      nextState.hotels = savedState.hotels || JSON.parse(JSON.stringify(initialData.hotels));
+      nextState.amenityRows = savedState.amenityRows || JSON.parse(JSON.stringify(initialData.amenityRows));
+      nextState.outfitDays = savedState.outfitDays || JSON.parse(JSON.stringify(initialData.outfitDays));
+      nextState.weatherNotes = savedState.weatherNotes || JSON.parse(JSON.stringify(initialData.weatherNotes));
+      nextState.miscNotes = savedState.miscNotes || JSON.parse(JSON.stringify(initialData.miscNotes));
+      nextState.packingGroups = savedState.packingGroups || JSON.parse(JSON.stringify(initialData.packingGroups));
       persistState(nextState);
       return nextState;
     }
@@ -1056,7 +1382,7 @@
       } else if (activeTab === "todo") {
         content.innerHTML = renderChecklist("todo", "TODO", "やることを追加", state.todos);
       } else if (activeTab === "packing") {
-        content.innerHTML = renderChecklist("packing", "持ち物", "持ち物を追加", state.packing);
+        content.innerHTML = renderPacking();
       } else {
         const day = findDay(activeTab);
         content.innerHTML = renderDay(day);
@@ -1074,6 +1400,13 @@
             </div>
           </div>
           ${renderFlights()}
+          ${renderTripInfo()}
+          ${renderRouteOverview()}
+          ${renderPinMap()}
+          ${renderHotels()}
+          ${renderOutfits()}
+          ${renderNotesCard("天気・服装メモ", state.weatherNotes)}
+          ${renderNotesCard("その他メモ", state.miscNotes)}
           <div class="summary-grid">
             ${state.days.map((day) => `
               <button class="day-card" type="button" data-jump="${day.id}">
@@ -1095,6 +1428,148 @@
               </button>
             `).join("")}
           </div>
+        </section>
+      `;
+    }
+
+    function renderTripInfo() {
+      const info = state.tripInfo;
+      return `
+        <section class="info-card">
+          <h3>旅の基本情報</h3>
+          <div class="meta-grid">
+            <div class="meta-item">
+              <div class="meta-label">旅行期間</div>
+              <div class="meta-value">${escapeHtml(info.period)}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">移動手段</div>
+              <div class="meta-value">${escapeHtml(info.transport)}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">メンバー</div>
+              <div class="meta-value">${escapeHtml(info.members)}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">ルート</div>
+              <div class="meta-value">${escapeHtml(info.route)}</div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderRouteOverview() {
+      return `
+        <section class="info-card">
+          <h3>日程別ルート</h3>
+          <ul class="route-list">
+            ${state.routeDays.map((current) => `
+              <li class="route-row">
+                <div class="route-day">${escapeHtml(current.date)}</div>
+                <div>
+                  <div class="route-title">${escapeHtml(current.route)}</div>
+                  <div class="route-detail">立ち寄り：${escapeHtml(current.highlights)}</div>
+                  <div class="route-detail">宿泊：${escapeHtml(current.stay)}</div>
+                </div>
+              </li>
+            `).join("")}
+          </ul>
+        </section>
+      `;
+    }
+
+    function renderPinMap() {
+      return `
+        <section class="info-card">
+          <h3>ルートピン</h3>
+          <div class="pin-map" aria-label="四国旅行の地点ピン">
+            ${state.mapPins.map((current) => {
+              const pos = pinPosition(current);
+              return `
+                <div class="pin" style="--x:${pos.x}%; --y:${pos.y}%;" title="${escapeHtml(current.name)}">
+                  <span class="pin-dot ${escapeHtml(current.type)}"></span>
+                  <span class="pin-name">D${current.day} ${escapeHtml(current.name)}</span>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderHotels() {
+      return `
+        <section class="info-card">
+          <h3>ホテル情報</h3>
+          <div class="hotel-list">
+            ${state.hotels.map((current) => `
+              <article class="hotel-card">
+                <div class="small-label">${escapeHtml(current.night)}</div>
+                <div class="hotel-name">${escapeHtml(current.name)}</div>
+                <div class="hotel-detail">所在地：${escapeHtml(current.address)}</div>
+                <div class="hotel-detail">アクセス：${escapeHtml(current.access)}</div>
+                <div class="hotel-detail">部屋：${escapeHtml(current.room)}</div>
+                <div class="hotel-tags">
+                  ${current.facilities.map((facility) => `<span class="soft-tag">${escapeHtml(facility)}</span>`).join("")}
+                </div>
+                <div class="hotel-detail">備考：${escapeHtml(current.note)}</div>
+              </article>
+            `).join("")}
+          </div>
+          ${renderAmenityTable()}
+        </section>
+      `;
+    }
+
+    function renderAmenityTable() {
+      return `
+        <table class="amenity-table" aria-label="ホテル備品比較">
+          <thead>
+            <tr>
+              <th>アイテム</th>
+              <th>高松</th>
+              <th>高知</th>
+              <th>古湧園</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${state.amenityRows.map((row) => `
+              <tr>
+                ${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderOutfits() {
+      return `
+        <section class="info-card">
+          <h3>日程別コーディネート</h3>
+          <div class="outfit-list">
+            ${state.outfitDays.map((current) => `
+              <article class="outfit-card">
+                <div class="outfit-date">${escapeHtml(current.date)}</div>
+                <div class="outfit-grid">
+                  ${current.items.map(([label, value]) => `<span class="soft-tag">${escapeHtml(label)}：${escapeHtml(value)}</span>`).join("")}
+                </div>
+                <div class="outfit-point">${escapeHtml(current.point)}</div>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderNotesCard(title, notes) {
+      return `
+        <section class="info-card">
+          <h3>${escapeHtml(title)}</h3>
+          <ul class="memo-list">
+            ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
+          </ul>
         </section>
       `;
     }
@@ -1203,6 +1678,54 @@
       `;
     }
 
+    function renderPacking() {
+      const groupedTotal = state.packingGroups.reduce((total, group) => total + group.items.length, 0);
+      const groupedDone = state.packingGroups.reduce((total, group) => total + group.items.filter((item) => item.done).length, 0);
+      const legacyDone = state.packing.filter((item) => item.done).length;
+      const total = groupedTotal + state.packing.length;
+      const done = groupedDone + legacyDone;
+
+      return `
+        <section class="view active">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">持ち物</h2>
+              <p class="section-subtitle">${done}/${total} 完了</p>
+            </div>
+          </div>
+          <form class="add-row" data-list-form="packing">
+            <input class="input" name="text" autocomplete="off" required placeholder="持ち物を追加">
+            <button class="icon-button" type="submit" aria-label="追加">＋</button>
+          </form>
+          ${state.packingGroups.map((group) => `
+            <section class="packing-group">
+              <h3 class="packing-group-title">${escapeHtml(group.title)}</h3>
+              <div class="checklist">
+                ${group.items.map((current) => checkItemMarkup("packingGroup", current, group.id)).join("")}
+              </div>
+            </section>
+          `).join("")}
+          <section class="packing-group">
+            <h3 class="packing-group-title">追加した持ち物</h3>
+            <div class="checklist">
+              ${state.packing.length ? state.packing.map((current) => checkItemMarkup("packing", current)).join("") : `<div class="card empty">追加項目はまだありません</div>`}
+            </div>
+          </section>
+        </section>
+      `;
+    }
+
+    function checkItemMarkup(type, current, groupId = "") {
+      const key = groupId ? `${type}:${groupId}:${current.id}` : `${type}:${current.id}`;
+      return `
+        <label class="check-item ${current.done ? "done" : ""}">
+          <input type="checkbox" ${current.done ? "checked" : ""} data-toggle-check="${key}">
+          <span class="check-text">${escapeHtml(current.text)}</span>
+          <button class="mini-button danger" type="button" data-delete-check="${key}" aria-label="削除">×</button>
+        </label>
+      `;
+    }
+
     function bindViewEvents() {
       document.querySelectorAll("[data-jump]").forEach((button) => {
         button.addEventListener("click", () => setTab(button.dataset.jump));
@@ -1251,8 +1774,7 @@
 
       document.querySelectorAll("[data-toggle-check]").forEach((input) => {
         input.addEventListener("change", () => {
-          const [type, id] = input.dataset.toggleCheck.split(":");
-          const current = listFor(type).find((entry) => entry.id === id);
+          const current = findCheckItem(input.dataset.toggleCheck);
           current.done = input.checked;
           persist();
           render();
@@ -1261,9 +1783,9 @@
 
       document.querySelectorAll("[data-delete-check]").forEach((button) => {
         button.addEventListener("click", () => {
-          const [type, id] = button.dataset.deleteCheck.split(":");
           if (!confirm("この項目を削除しますか？")) return;
-          const list = listFor(type);
+          const list = listForCheckKey(button.dataset.deleteCheck);
+          const id = button.dataset.deleteCheck.split(":").at(-1);
           const index = list.findIndex((entry) => entry.id === id);
           if (index >= 0) list.splice(index, 1);
           persist();
@@ -1334,6 +1856,32 @@
 
     function listFor(type) {
       return type === "packing" ? state.packing : state.todos;
+    }
+
+    function listForCheckKey(key) {
+      const [type, groupId] = key.split(":");
+      if (type === "packingGroup") {
+        const group = state.packingGroups.find((current) => current.id === groupId);
+        return group ? group.items : [];
+      }
+      return listFor(type);
+    }
+
+    function findCheckItem(key) {
+      const id = key.split(":").at(-1);
+      return listForCheckKey(key).find((entry) => entry.id === id);
+    }
+
+    function pinPosition(current) {
+      const latitudes = state.mapPins.map((pin) => pin.lat);
+      const longitudes = state.mapPins.map((pin) => pin.lng);
+      const minLat = Math.min(...latitudes);
+      const maxLat = Math.max(...latitudes);
+      const minLng = Math.min(...longitudes);
+      const maxLng = Math.max(...longitudes);
+      const x = 12 + ((current.lng - minLng) / (maxLng - minLng || 1)) * 76;
+      const y = 88 - ((current.lat - minLat) / (maxLat - minLat || 1)) * 76;
+      return { x: Math.round(x), y: Math.round(y) };
     }
 
     function sortItems(items) {
