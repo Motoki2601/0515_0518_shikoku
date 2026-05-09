@@ -384,45 +384,105 @@
 
     .pin-map {
       position: relative;
-      height: 260px;
+      height: 286px;
       margin-top: 2px;
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid var(--line);
+      border: 1px solid var(--hairline);
       background:
-        linear-gradient(135deg, rgba(0, 122, 255, 0.14), rgba(52, 199, 89, 0.12)),
-        radial-gradient(circle at 20% 20%, rgba(255, 149, 0, 0.22), transparent 28%),
-        #fff;
+        radial-gradient(circle at 22% 20%, rgba(0, 122, 255, 0.13), transparent 30%),
+        linear-gradient(145deg, #F9F9FA 0%, #ECECEF 100%);
     }
 
     .pin-map::before {
       content: "";
       position: absolute;
-      inset: 24px 34px;
-      border: 2px dashed rgba(142, 142, 147, 0.42);
-      border-radius: 48% 42% 45% 50%;
-      transform: rotate(-16deg);
+      left: 38px;
+      right: 26px;
+      top: 54px;
+      bottom: 34px;
+      background: #FFFFFF;
+      border: 1px solid rgba(28, 28, 30, 0.08);
+      border-radius: 58% 42% 50% 46% / 38% 46% 54% 62%;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 12px 26px rgba(28, 28, 30, 0.06);
+      transform: rotate(-11deg);
+    }
+
+    .map-title {
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      z-index: 2;
+      color: var(--subtext);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.35;
+    }
+
+    .map-route {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .map-route path {
+      fill: none;
+      stroke: rgba(233, 130, 33, 0.72);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 7 8;
+    }
+
+    .map-region {
+      position: absolute;
+      z-index: 1;
+      color: rgba(127, 127, 134, 0.58);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .map-region.kagawa {
+      left: 63%;
+      top: 23%;
+    }
+
+    .map-region.kochi {
+      left: 39%;
+      top: 71%;
+    }
+
+    .map-region.ehime {
+      left: 14%;
+      top: 38%;
     }
 
     .pin {
       position: absolute;
       left: var(--x);
       top: var(--y);
-      transform: translate(-50%, -100%);
+      z-index: 3;
+      transform: translate(-50%, -50%);
       display: grid;
       justify-items: center;
-      gap: 3px;
-      min-width: 42px;
+      gap: 4px;
+      min-width: 52px;
     }
 
     .pin-dot {
-      width: 18px;
-      height: 18px;
-      border: 3px solid #fff;
-      border-radius: 50% 50% 50% 0;
-      transform: rotate(-45deg);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      box-shadow: 0 4px 10px rgba(28, 28, 30, 0.17);
       background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
     }
 
     .pin-dot.airport {
@@ -442,16 +502,35 @@
     }
 
     .pin-name {
-      max-width: 74px;
-      padding: 2px 5px;
+      max-width: 86px;
+      padding: 3px 6px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       color: var(--text);
       font-size: 10px;
       font-weight: 800;
       line-height: 1.2;
       text-align: center;
       box-shadow: 0 2px 8px rgba(28, 28, 30, 0.08);
+    }
+
+    .map-legend {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+      z-index: 4;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 7px 8px;
+      border: 1px solid rgba(28, 28, 30, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(12px);
+      color: var(--subtext);
+      font-size: 10px;
+      font-weight: 850;
     }
 
     .hotel-tags,
@@ -1480,7 +1559,6 @@
                 <div class="route-day">${escapeHtml(current.date)}</div>
                 <div>
                   <div class="route-title">${escapeHtml(current.route)}</div>
-                  <div class="route-detail">立ち寄り：${escapeHtml(current.highlights)}</div>
                   <div class="route-detail">宿泊：${escapeHtml(current.stay)}</div>
                 </div>
               </li>
@@ -1491,19 +1569,35 @@
     }
 
     function renderPinMap() {
+      const routePins = [
+        { name: "高松", x: 72, y: 28, day: 1, type: "airport" },
+        { name: "高知", x: 44, y: 72, day: 2, type: "food" },
+        { name: "道後温泉", x: 22, y: 44, day: 3, type: "sightseeing" },
+        { name: "松山空港", x: 18, y: 33, day: 4, type: "airport" }
+      ];
       return `
         <section class="info-card">
-          <h3>ルートピン</h3>
-          <div class="pin-map" aria-label="四国旅行の地点ピン">
-            ${state.mapPins.map((current) => {
-              const pos = pinPosition(current);
-              return `
-                <div class="pin" style="--x:${pos.x}%; --y:${pos.y}%;" title="${escapeHtml(current.name)}">
-                  <span class="pin-dot ${escapeHtml(current.type)}"></span>
-                  <span class="pin-name">D${current.day} ${escapeHtml(current.name)}</span>
-                </div>
-              `;
-            }).join("")}
+          <h3>四国周遊ルート</h3>
+          <div class="pin-map" aria-label="高松から高知、道後温泉、松山空港へ進む四国周遊ルート">
+            <div class="map-title">高松IN → 高知 → 道後温泉 → 松山OUT</div>
+            <svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M72 28 C66 40, 55 57, 44 72 C34 64, 24 54, 22 44 C22 38, 18 35, 18 33" />
+            </svg>
+            <span class="map-region kagawa">香川</span>
+            <span class="map-region kochi">高知</span>
+            <span class="map-region ehime">愛媛</span>
+            ${routePins.map((current) => `
+              <div class="pin" style="--x:${current.x}%; --y:${current.y}%;" title="${escapeHtml(current.name)}">
+                <span class="pin-dot ${escapeHtml(current.type)}">${current.day}</span>
+                <span class="pin-name">Day${current.day} ${escapeHtml(current.name)}</span>
+              </div>
+            `).join("")}
+            <div class="map-legend">
+              <span>1 高松</span>
+              <span>2 高知</span>
+              <span>3 道後</span>
+              <span>4 松山空港</span>
+            </div>
           </div>
         </section>
       `;
@@ -1863,18 +1957,6 @@
     function findCheckItem(key) {
       const id = key.split(":").at(-1);
       return listForCheckKey(key).find((entry) => entry.id === id);
-    }
-
-    function pinPosition(current) {
-      const latitudes = state.mapPins.map((pin) => pin.lat);
-      const longitudes = state.mapPins.map((pin) => pin.lng);
-      const minLat = Math.min(...latitudes);
-      const maxLat = Math.max(...latitudes);
-      const minLng = Math.min(...longitudes);
-      const maxLng = Math.max(...longitudes);
-      const x = 12 + ((current.lng - minLng) / (maxLng - minLng || 1)) * 76;
-      const y = 88 - ((current.lat - minLat) / (maxLat - minLat || 1)) * 76;
-      return { x: Math.round(x), y: Math.round(y) };
     }
 
     function sortItems(items) {
