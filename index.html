@@ -1130,20 +1130,6 @@
         outfit("5/17 グルメ・道後温泉 → 古湧園泊", [["トップス", "開襟シャツ（薄手）"], ["ボトムス", "ラングラー グレー"], ["シューズ", "Salomon XA PRO 3D"], ["夜", "古湧園の浴衣＋下駄"]], "昼はシャツできれいめに。夜は浴衣で道後温泉本館周辺を散策。"),
         outfit("5/18 帰宅日", [["トップス", "残りのTシャツ"], ["ボトムス", "ラングラー 黒"], ["シューズ", "Salomon XA PRO 3D"], ["アウター", "カーディガン"]], "帰りはお土産で荷物が増える。着回しで荷物を最小限に。")
       ],
-      weatherNotes: [
-        "5月中旬の四国は気温20〜23℃前後",
-        "雨の可能性あり。折りたたみ傘必須",
-        "高知はスコール的な雨が降ることもある",
-        "XA PRO 3D GORE-TEXモデルなら雨天でも使いやすい"
-      ],
-      miscNotes: [
-        "現金は地方エリアでカード不可の店が多いため、一人あたま1〜2万円を推奨",
-        "ひろめ市場は週末混雑するため、到着後なるべく早めに入る",
-        "道後温泉本館は6:00〜23:00営業（入浴料700円〜）",
-        "松山城はロープウェイ/リフトで登れる（9:00〜16:30）",
-        "コインランドリーは1・2日目のホテルで使用可能",
-        "ランニングは2日目（高知）の朝が最適。高知城周辺が走りやすい"
-      ],
       days: [
         {
           id: "day1",
@@ -1352,8 +1338,6 @@
       nextState.hotels = savedState.hotels || JSON.parse(JSON.stringify(initialData.hotels));
       nextState.amenityRows = savedState.amenityRows || JSON.parse(JSON.stringify(initialData.amenityRows));
       nextState.outfitDays = savedState.outfitDays || JSON.parse(JSON.stringify(initialData.outfitDays));
-      nextState.weatherNotes = savedState.weatherNotes || JSON.parse(JSON.stringify(initialData.weatherNotes));
-      nextState.miscNotes = savedState.miscNotes || JSON.parse(JSON.stringify(initialData.miscNotes));
       nextState.packingGroups = savedState.packingGroups || JSON.parse(JSON.stringify(initialData.packingGroups));
       persistState(nextState);
       return nextState;
@@ -1403,10 +1387,7 @@
           ${renderTripInfo()}
           ${renderRouteOverview()}
           ${renderPinMap()}
-          ${renderHotels()}
           ${renderOutfits()}
-          ${renderNotesCard("天気・服装メモ", state.weatherNotes)}
-          ${renderNotesCard("その他メモ", state.miscNotes)}
           <div class="summary-grid">
             ${state.days.map((day) => `
               <button class="day-card" type="button" data-jump="${day.id}">
@@ -1498,45 +1479,46 @@
       `;
     }
 
-    function renderHotels() {
+    function renderDayHotel(dayId) {
+      const dayNumber = Number(dayId.replace("day", ""));
+      const current = state.hotels[dayNumber - 1];
+      if (!current) return "";
+
       return `
         <section class="info-card">
           <h3>ホテル情報</h3>
-          <div class="hotel-list">
-            ${state.hotels.map((current) => `
-              <article class="hotel-card">
-                <div class="small-label">${escapeHtml(current.night)}</div>
-                <div class="hotel-name">${escapeHtml(current.name)}</div>
-                <div class="hotel-detail">所在地：${escapeHtml(current.address)}</div>
-                <div class="hotel-detail">アクセス：${escapeHtml(current.access)}</div>
-                <div class="hotel-detail">部屋：${escapeHtml(current.room)}</div>
-                <div class="hotel-tags">
-                  ${current.facilities.map((facility) => `<span class="soft-tag">${escapeHtml(facility)}</span>`).join("")}
-                </div>
-                <div class="hotel-detail">備考：${escapeHtml(current.note)}</div>
-              </article>
-            `).join("")}
-          </div>
-          ${renderAmenityTable()}
+          <article class="hotel-card">
+            <div class="small-label">${escapeHtml(current.night)}</div>
+            <div class="hotel-name">${escapeHtml(current.name)}</div>
+            <div class="hotel-detail">所在地：${escapeHtml(current.address)}</div>
+            <div class="hotel-detail">アクセス：${escapeHtml(current.access)}</div>
+            <div class="hotel-detail">部屋：${escapeHtml(current.room)}</div>
+            <div class="hotel-tags">
+              ${current.facilities.map((facility) => `<span class="soft-tag">${escapeHtml(facility)}</span>`).join("")}
+            </div>
+            <div class="hotel-detail">備考：${escapeHtml(current.note)}</div>
+          </article>
+          ${renderAmenityTable(dayNumber)}
         </section>
       `;
     }
 
-    function renderAmenityTable() {
+    function renderAmenityTable(dayNumber) {
+      const headers = ["高松", "高知", "古湧園"];
+      const columnIndex = dayNumber;
       return `
         <table class="amenity-table" aria-label="ホテル備品比較">
           <thead>
             <tr>
               <th>アイテム</th>
-              <th>高松</th>
-              <th>高知</th>
-              <th>古湧園</th>
+              <th>${escapeHtml(headers[dayNumber - 1])}</th>
             </tr>
           </thead>
           <tbody>
             ${state.amenityRows.map((row) => `
               <tr>
-                ${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}
+                <td>${escapeHtml(row[0])}</td>
+                <td>${escapeHtml(row[columnIndex])}</td>
               </tr>
             `).join("")}
           </tbody>
@@ -1559,17 +1541,6 @@
               </article>
             `).join("")}
           </div>
-        </section>
-      `;
-    }
-
-    function renderNotesCard(title, notes) {
-      return `
-        <section class="info-card">
-          <h3>${escapeHtml(title)}</h3>
-          <ul class="memo-list">
-            ${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}
-          </ul>
         </section>
       `;
     }
@@ -1623,6 +1594,7 @@
             </div>
             <button class="icon-button" type="button" data-add-item="${day.id}" aria-label="予定を追加">＋</button>
           </div>
+          ${renderDayHotel(day.id)}
           <div class="timeline">
             ${day.items.length ? sortItems(day.items).map((current) => timelineItem(day.id, current)).join("") : `
               <div class="card empty">予定はまだありません</div>
